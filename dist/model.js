@@ -96,4 +96,15 @@ async function loadOnStart() {
     else {
         console.log("There are patients in local storage.");
     }
+    if (doctors.size === 0) {
+        // const csvData = await importFromCSV("./data/patients.csv");
+        // const importedPatients = parsePatiensCSV(csvData);
+        // savePatients(importedPatients);
+        // console.log ("saving imported patients to local storage");
+        // patients = loadPatients();
+        // console.log ("loading imported patients from local storage");        
+    }
+    else {
+        console.log("There are doctors in local storage.");
+    }
 }
