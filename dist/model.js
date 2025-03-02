@@ -95,7 +95,6 @@ export async function importFromCSV() {
     const file = "./data/patients.csv";
     const csvData = await fetchCSVFile(file); // Wait for the CSV file to be fetched
     console.log("got csv data"); // This will be logged after the CSV data is loaded
-    // console.log(csvData);
     const importedPatients = parsePatiensCSV(csvData);
     savePatients(importedPatients);
     console.log("saving imported patients to local storage");
@@ -104,8 +103,6 @@ export async function importFromCSV() {
     console.log(patients);
 }
 function parsePatiensCSV(csv) {
-    console.log("parser start");
-    console.log(csv);
     const lines = csv.trim().split("\n");
     const patients = new Map();
     for (const line of lines.slice(1)) {
@@ -119,7 +116,5 @@ function parsePatiensCSV(csv) {
             contactPhone,
             email });
     }
-    console.log("parser");
-    console.log(patients);
     return patients;
 }
