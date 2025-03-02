@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | iPatient</title>
+    <link rel="stylesheet" href="./dist/loginstyle.css">
+</head>
+<body>
+    <main class="login-container">
+        <header class="top-bar">
+            <img src="./slave/logoip.jfif" alt="iPatient Logo">
+            <p>Customer Service <strong>*512</strong> 📞</p>
+        </header>
+
+        <section class="login-box">
+            <div class="login-form">
+                <h2>Login to iPatient Online</h2>
+                <p class="subtext">
+                    <a href="#">Login with a one-time password</a>  <a href="#">Forgot password?</a>
+                </p>
+
+                <form id="login-form">
+                    <label for="id">ID</label>
+                    <input type="text" id="id" name="id" required pattern="[0-9]{9}" placeholder="Enter your ID number">
+                    
+                    <label for="password">Password </label>
+                    <input type="tel" id="password" name="password" required pattern="[0-9]{10}" placeholder="Enter your phone number">
+                    
+                    <div class="captcha">
+                        <input type="checkbox" id="captcha">
+                        <label for="captcha">I'm not a robot</label>
+                    </div>
+
+                    <button type="submit" class="login-button">Login</button>
+                    <p id="error-message" class="error-message"></p>
+                </form>
+            </div>
+
+            <div class="login-image">
+                <img src="./slave/logincontainerbanner.jpg" alt="Doctor with a happy patient">
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2025 iPatient. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="./dist/logints.js"></script>
+    <SCript:src="./dist/model.js"></SCript:src=>
+</body>
+</html>
