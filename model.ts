@@ -1,7 +1,7 @@
 type Patient = {
     id: string;
     password: string;
-    ame: string;
+    name: string;
     surname: String;
     dateOfBirth: Date;
     address: string;
@@ -27,7 +27,11 @@ type Appointment = {
 }
 
 type Recepie = {
-    
+
+}
+
+type Test = {
+
 }
 
 function loadPatients(){
