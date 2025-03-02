@@ -1,3 +1,5 @@
+import { importFromCSV, parsePatiensCSV } from "./loader.js";
+
 export type Patient = {
     id: string;
     password: string;
@@ -9,20 +11,20 @@ export type Patient = {
     email: string;    
 }
 
-type Doctor = {
+export type Doctor = {
     id: string;
     Name: string;
     Surname: string;
     department: string;     
 }
 
-type Laboratory = {
+export type Laboratory = {
     id: string;
     name: string;
     department: string;
 }
 
-type Appointment = {
+export type Appointment = {
     id: string;
     title: string;
     remarks: string;
@@ -33,7 +35,7 @@ type Appointment = {
     status: "scheduled" | "completed" | "canceled";
 }
 
-type Recepie = {
+export type Prescription = {
     id: string;
     doctor: Doctor;
     patient: Patient;
@@ -41,7 +43,7 @@ type Recepie = {
     date: Date;        
 }
 
-type Test = {
+export type Test = {
     id: string;
     doctor: Doctor;
     patient: Patient;
@@ -54,7 +56,7 @@ const patientsStorageKey = "patients";
 const currentPatientStorageKey = "currPatient";
 const doctorsStorageKey = "doctors";
 const appointmentsStorageKey = "appointments";
-const recepiesStorageKey = "recepies";
+const perscriptionsStorageKey = "perscriptions";
 const labsStorageKey = "labs";
 const testsStorageKey = "tests";
 
@@ -62,10 +64,12 @@ let patients = loadPatients();
 let doctors = loadDoctors();
 let appointments = loadAppointments();
 let labs = loadLabs();
-let recepies = loadRecepies();
+let perscriptions = loadPrescriptions();
 let tests = loadTests();
 
-function loadPatients(): Map<string, Patient> {
+loadOnStart();
+
+export function loadPatients(): Map<string, Patient> {
     const storedPatients = localStorage.getItem(patientsStorageKey);
     
     if (!storedPatients) return new Map(); 
@@ -78,11 +82,17 @@ function loadPatients(): Map<string, Patient> {
     ]));
 }
 
-function savePatients(patients: Map<string, Patient>){
+export function savePatients(patients: Map<string, Patient>){
     console.log("saving patients");
     console.log(patients);
     const patientsArray = Array.from(patients.entries()); 
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
+
+}
+
+export function addPatient(patient : Patient){
+
+    patients.set(patient.id,patient);
 
 }
 
@@ -126,17 +136,17 @@ function loadAppointments(): Map<string,Appointment>{
     ]));
 }
 
-function loadRecepies(): Map<string,Recepie>{
+function loadPrescriptions(): Map<string,Prescription>{
 
-    const storedRecepies = localStorage.getItem(recepiesStorageKey);
+    const storedPrescriptions = localStorage.getItem(perscriptionsStorageKey);
     
-    if (!storedRecepies) return new Map(); 
+    if (!storedPrescriptions) return new Map(); 
 
-    const recepiesArray: [string, Recepie][] = JSON.parse(storedRecepies);
+    const perscriptionsArray: [string, Prescription][] = JSON.parse(storedPrescriptions);
  
-    return new Map(recepiesArray.map(([id, recepie]) => [
+    return new Map(perscriptionsArray.map(([id, perscription]) => [
         id,
-        { ...recepie, date: new Date(recepie.date) } // Recreate Date object
+        { ...perscription, date: new Date(perscription.date) } // Recreate Date object
     ]));
 }
 
@@ -156,55 +166,18 @@ function loadTests(): Map<string,Test>{
 
 export function testFunction(){
     console.log("test");
-    console.log(patients);
+    // console.log(patients);
 }
 
-async function fetchCSVFile(file: string): Promise<string> {
-    try {
-        const response = await fetch(file);
-        const text = await response.text();  // Wait for file content as text
-        console.log(`${file} is loaded.`);
-        return text;  // Return the file content
-    } catch (error) {
-        console.error("Error loading file:", error);  // Handle any errors
-        throw error;  // Throw error to be handled by the calling function
+async function loadOnStart(){
+    if (patients.size === 0){
+        const csvData = await importFromCSV("./data/patients.csv");
+        const importedPatients = parsePatiensCSV(csvData);
+        savePatients(importedPatients);
+        console.log ("saving imported patients to local storage");
+        patients = loadPatients();
+        console.log ("loading imported patients from local storage");        
+    } else {
+        console.log("There are patients in local storage.");
     }
-}
-
-export async function importFromCSV(){
-    
-    const file = "./data/patients.csv";
-    const csvData = await fetchCSVFile(file);  // Wait for the CSV file to be fetched
-    console.log("got csv data");  // This will be logged after the CSV data is loaded
-       
-    const importedPatients = parsePatiensCSV(csvData);
-    savePatients(importedPatients);
-    console.log ("saving imported patients to local storage");
-    patients = loadPatients();
-    console.log ("loading imported patients from local storage");
-    console.log(patients);
-}
-
-function parsePatiensCSV(csv : string) : Map<string, Patient> {
-
-    const lines = csv.trim().split("\n");
-    const patients = new Map<string, Patient>();
-
-    for (const line of lines.slice(1)) { 
-        const [id, password, name, surname,dateOfBirth,address,contactPhone,email ] = line.split(",");
-
-        patients.set(id,
-            {id,
-            password,
-            name,
-            surname,
-            dateOfBirth: new Date(dateOfBirth),
-            address,
-            contactPhone,
-            email}
-        );
-    }
-
-    return patients;
-
 }
