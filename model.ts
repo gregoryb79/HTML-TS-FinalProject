@@ -1,8 +1,8 @@
-type Patient = {
+export type Patient = {
     id: string;
     password: string;
     name: string;
-    surname: String;
+    surname: string;
     dateOfBirth: Date;
     address: string;
     contactPhone: string;
