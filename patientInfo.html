@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Info</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/dist/patientInfo.css">
 </head>
 <body>
     <div class="container">
@@ -17,8 +17,10 @@
             <input type="text" id="address" placeholder="Address" required>
             <input type="tel" id="contactPhone" placeholder="Phone" required>
             <input type="email" id="email" placeholder="Email" required>
+            <div class ="button-group">
             <button type="button" id="updateBtn">Update</button>
             <button type="button" id="exportBtn">Export</button>
+        </div>
         </form>
         <div id="output"></div>
     </div>
