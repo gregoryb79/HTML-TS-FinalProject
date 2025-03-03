@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch the patients.csv file and parse it into an array of objects
     async function loadPatients(): Promise<{ id: string; password: string }[]> {
         try {
-            const response = await fetch("/data/patients.csv"); // Make sure this file is in the right location
+            const response = await fetch("/data/patients.csv"); // Fetch from the "data" folder
             const text = await response.text();
             const rows = text.split("\n").map(row => row.trim().split(","));
-
+    
             // Assuming first row is the header: ["id", "password"]
             return rows.slice(1).map(row => ({
                 id: row[0], 
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return [];
         }
     }
+    
 
     // Load patients data before form submission
     const patients = await loadPatients();
