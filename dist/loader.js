@@ -19,7 +19,7 @@ export async function importFromCSV(file) {
     return csvData.toString();
 }
 export function parsePatiensCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const patients = new Map();
     for (const line of lines.slice(1)) {
         const [id, password, name, surname, dateOfBirth, address, contactPhone, email] = line.split(",");
@@ -35,9 +35,10 @@ export function parsePatiensCSV(csv) {
     return patients;
 }
 export function parseDoctorsCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const doctors = new Map();
     for (const line of lines.slice(1)) {
+        console.log(line);
         const [id, name, surname, department] = line.split(",");
         doctors.set(id, { id,
             name,
@@ -47,7 +48,7 @@ export function parseDoctorsCSV(csv) {
     return doctors;
 }
 export function parseLabsCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const labs = new Map();
     for (const line of lines.slice(1)) {
         const [id, name, department] = line.split(",");
@@ -58,7 +59,7 @@ export function parseLabsCSV(csv) {
     return labs;
 }
 export function parseTestsCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const tests = new Map();
     for (const line of lines.slice(1)) {
         const [doctorID, patientID, testName, result, date, status] = line.split(",");
@@ -73,7 +74,7 @@ export function parseTestsCSV(csv) {
     return tests;
 }
 export function parsePrescriptionsCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const perscriptions = new Map();
     for (const line of lines.slice(1)) {
         const [doctorID, patientID, drug, date] = line.split(",");
@@ -87,7 +88,7 @@ export function parsePrescriptionsCSV(csv) {
     return perscriptions;
 }
 export function parseAppointmentsCSV(csv) {
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const appointments = new Map();
     for (const line of lines.slice(1)) {
         const [title, remarks, date, durationMinutes, hostID, host, visitorID, status] = line.split(",");

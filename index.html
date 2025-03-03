@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tester Page</title>
 </head>
 <body>
 
@@ -12,9 +12,33 @@
     </h2>
     
     <script type="module">
-        import {testFunction} from "./dist/model.js";
+        import {testFunction, getPatientAppointments, getPatientTests, 
+                getPatientPrescriptions, getDoctorByID} from "./dist/model.js";
+        import {onLoginFormSubmit} from "./dist/controller.js";
 
         testFunction();
+
+        const formData = new FormData();
+        //447695297 = existing id
+        formData.append("id", "802399279");        
+        formData.append("password", "123456");
+        try {
+            const result = onLoginFormSubmit(formData);
+            console.log(`The result of olgin is: ${result}.`);
+        } catch (error){
+            console.error(error);
+        }
+        
+        const appointments = getPatientAppointments();
+        console.log(appointments);
+        const tests = getPatientTests();
+        console.log(tests);
+        const prescriptions = getPatientPrescriptions();
+        console.log(prescriptions);
+        //"cff1f521" - valid id
+        const doctorID = "cff1f521";
+        const doctor = getDoctorByID(doctorID);
+        console.log(doctor);
         
     </script>
 </body>

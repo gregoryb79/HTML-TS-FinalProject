@@ -69,10 +69,62 @@ let appointments = loadAppointments();
 let labs = loadLabs();
 let prescriptions = loadPrescriptions();
 let tests = loadTests();
+let currPatient = loadCurrPatient();
 
 loadOnStart();
 
-export function loadPatients(): Map<string, Patient> {
+/************************************/
+/**         API FUNCTIONS          **/
+/************************************/
+export function testFunction(){
+    console.log("test"); 
+}
+
+export function setCurrentPatient(patientID : string){
+    sessionStorage.setItem(currentPatientStorageKey,patientID);
+}
+
+export function addPatient(patient : Patient){
+
+    patients.set(patient.id,patient);
+
+}
+
+export function getPassword(patientID : string) : string{
+
+    const password = patients.get(patientID)?.password ?? "";    
+    if (password) {
+        return password;        
+    }else{
+        return "";
+    }     
+}
+
+export function getPatientAppointments() : Appointment[]{
+    const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
+    return currPatientAppointments;
+}
+
+export function getPatientTests() : Test[]{
+    const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
+    return currPatientTests;
+}
+
+export function getPatientPrescriptions() : Prescription[]{
+    const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
+    return currPatientPrescriptions;
+}
+
+export function getDoctorByID(doctorID : string) : Doctor{
+    return doctors.get(doctorID);
+}
+/************************************/
+
+function loadCurrPatient() : string{
+    return sessionStorage.getItem(currentPatientStorageKey) ?? "";
+}
+
+function loadPatients(): Map<string, Patient> {
     const storedPatients = localStorage.getItem(patientsStorageKey);
     
     if (!storedPatients) return new Map(); 
@@ -85,16 +137,10 @@ export function loadPatients(): Map<string, Patient> {
     ]));
 }
 
-export function savePatients(patients: Map<string, Patient>){
+function savePatients(patients: Map<string, Patient>){
     console.log("saving patients");    
     const patientsArray = Array.from(patients.entries()); 
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
-
-}
-
-export function addPatient(patient : Patient){
-
-    patients.set(patient.id,patient);
 
 }
 
@@ -186,11 +232,6 @@ function saveTests(test : Map<string,Test>){
     console.log("saving Prescriptions");    
     const testsArray = Array.from(test.entries()); 
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));
-}
-
-export function testFunction(){
-    console.log("test");
-    // console.log(patients);
 }
 
 //Loads some pre generated data - for demo mode, if the local storage is empty

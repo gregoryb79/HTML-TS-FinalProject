@@ -25,7 +25,7 @@ export async function importFromCSV(file : string){
 
 export function parsePatiensCSV(csv : string) : Map<string, Patient> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const patients = new Map<string, Patient>();
 
     for (const line of lines.slice(1)) { 
@@ -47,10 +47,11 @@ export function parsePatiensCSV(csv : string) : Map<string, Patient> {
 
 export function parseDoctorsCSV(csv : string) : Map<string, Doctor> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const doctors = new Map<string, Doctor>();
 
     for (const line of lines.slice(1)) { 
+        console.log(line);
         const [id,name, surname, department] = line.split(",");
         
         doctors.set(id,
@@ -66,7 +67,7 @@ export function parseDoctorsCSV(csv : string) : Map<string, Doctor> {
 
 export function parseLabsCSV(csv : string) : Map<string, Laboratory> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const labs = new Map<string, Laboratory>();
 
     for (const line of lines.slice(1)) { 
@@ -83,7 +84,7 @@ export function parseLabsCSV(csv : string) : Map<string, Laboratory> {
 
 export function parseTestsCSV(csv : string) : Map<string, Test> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const tests = new Map<string, Test>();
 
     for (const line of lines.slice(1)) { 
@@ -104,7 +105,7 @@ export function parseTestsCSV(csv : string) : Map<string, Test> {
 
 export function parsePrescriptionsCSV(csv : string) : Map<string, Prescription> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const perscriptions = new Map<string, Prescription>();
 
     for (const line of lines.slice(1)) { 
@@ -123,7 +124,7 @@ export function parsePrescriptionsCSV(csv : string) : Map<string, Prescription> 
 
 export function parseAppointmentsCSV(csv : string) : Map<string, Appointment> {
 
-    const lines = csv.trim().split("\n");
+    const lines = csv.trim().split("\n").map(line => line.replace(/\r/g, ""));
     const appointments = new Map<string, Appointment>();
 
     for (const line of lines.slice(1)) { 

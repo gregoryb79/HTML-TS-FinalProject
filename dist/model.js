@@ -12,8 +12,49 @@ let appointments = loadAppointments();
 let labs = loadLabs();
 let prescriptions = loadPrescriptions();
 let tests = loadTests();
+let currPatient = loadCurrPatient();
 loadOnStart();
-export function loadPatients() {
+/************************************/
+/**         API FUNCTIONS          **/
+/************************************/
+export function testFunction() {
+    console.log("test");
+}
+export function setCurrentPatient(patientID) {
+    sessionStorage.setItem(currentPatientStorageKey, patientID);
+}
+export function addPatient(patient) {
+    patients.set(patient.id, patient);
+}
+export function getPassword(patientID) {
+    const password = patients.get(patientID)?.password ?? "";
+    if (password) {
+        return password;
+    }
+    else {
+        return "";
+    }
+}
+export function getPatientAppointments() {
+    const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
+    return currPatientAppointments;
+}
+export function getPatientTests() {
+    const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
+    return currPatientTests;
+}
+export function getPatientPrescriptions() {
+    const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
+    return currPatientPrescriptions;
+}
+export function getDoctorByID(doctorID) {
+    return doctors.get(doctorID);
+}
+/************************************/
+function loadCurrPatient() {
+    return sessionStorage.getItem(currentPatientStorageKey) ?? "";
+}
+function loadPatients() {
     const storedPatients = localStorage.getItem(patientsStorageKey);
     if (!storedPatients)
         return new Map();
@@ -23,13 +64,10 @@ export function loadPatients() {
         { ...patient, date: new Date(patient.dateOfBirth) } // Recreate Date object
     ]));
 }
-export function savePatients(patients) {
+function savePatients(patients) {
     console.log("saving patients");
     const patientsArray = Array.from(patients.entries());
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
-}
-export function addPatient(patient) {
-    patients.set(patient.id, patient);
 }
 function loadDoctors() {
     const storedDoctors = localStorage.getItem(doctorsStorageKey);
@@ -99,10 +137,6 @@ function saveTests(test) {
     console.log("saving Prescriptions");
     const testsArray = Array.from(test.entries());
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));
-}
-export function testFunction() {
-    console.log("test");
-    // console.log(patients);
 }
 //Loads some pre generated data - for demo mode, if the local storage is empty
 async function loadOnStart() {
