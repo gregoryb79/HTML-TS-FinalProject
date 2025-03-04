@@ -50,6 +50,66 @@ export function getPatientPrescriptions() {
 export function getDoctorByID(doctorID) {
     return doctors.get(doctorID);
 }
+export function getHostAppointments(hostID) {
+    const hostAppointments = Array.from(appointments.values().filter(appointment => appointment.hostID === hostID));
+    return hostAppointments;
+}
+export function isHostValid(hostID) {
+    if (labs.has(hostID) || doctors.has(hostID)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+export function addAppointment(date, hostID) {
+    const id = crypto.randomUUID().replaceAll("-", "").slice(-8);
+    const title = "Appointment to " + (labs.get(hostID)?.name ?? ("Doctor " + doctors.get(hostID)?.name + " " + doctors.get(hostID)?.surname));
+    const host = labs.has(hostID) ? "Laboratory" : "Doctor";
+    const appointment = {
+        id: id,
+        title: title,
+        remarks: "",
+        date: date,
+        durationMinutes: 60,
+        hostID: hostID,
+        host: host,
+        visitorID: currPatient,
+        status: "scheduled"
+    };
+    appointments.set(id, appointment);
+    saveAppointments();
+}
+export function getListOfDepartments(hostType) {
+    let departments = [];
+    if (hostType === "Doctor") {
+        departments = Array.from(new Set(Array.from(doctors.values()).map(doctor => doctor.department)));
+    }
+    if (hostType === "Laboratory") {
+        departments = Array.from(new Set(Array.from(labs.values()).map(lab => lab.department)));
+    }
+    return departments;
+}
+export function getHosts(departmentType, hostType) {
+    if (hostType === "Doctor") {
+        const doctorsAtDepartment = Array.from(doctors.values().filter(doctor => doctor.department === departmentType));
+        return doctorsAtDepartment;
+    }
+    if (hostType === "Laboratory") {
+        const labsAtDepartment = Array.from(labs.values().filter(lab => lab.department === departmentType));
+        return labsAtDepartment;
+    }
+}
+export function appointmentsForDate(hostID, day) {
+    const start = new Date(day);
+    start.setHours(0, 0, 0, 1);
+    const stop = new Date(day);
+    stop.setHours(23, 59, 59, 99);
+    console.log(`Time interval is from ${start} to ${stop}`);
+    const hostAppointmentsForDate = Array.from(appointments.values().filter(appointment => (appointment.hostID === hostID) && (appointment.date > start) && (appointment.date < stop)));
+    hostAppointmentsForDate.sort((a, b) => a.date.getTime() - b.date.getTime());
+    return hostAppointmentsForDate ?? [];
+}
 /************************************/
 function loadCurrPatient() {
     return sessionStorage.getItem(currentPatientStorageKey) ?? "";
@@ -64,7 +124,7 @@ function loadPatients() {
         { ...patient, date: new Date(patient.dateOfBirth) } // Recreate Date object
     ]));
 }
-function savePatients(patients) {
+function savePatients() {
     console.log("saving patients");
     const patientsArray = Array.from(patients.entries());
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
@@ -76,7 +136,7 @@ function loadDoctors() {
     const doctorsArray = JSON.parse(storedDoctors);
     return new Map(doctorsArray);
 }
-function saveDoctors(doctors) {
+function saveDoctors() {
     console.log("saving doctors");
     const doctorsArray = Array.from(doctors.entries());
     localStorage.setItem(doctorsStorageKey, JSON.stringify(doctorsArray));
@@ -88,7 +148,7 @@ function loadLabs() {
     const labsArray = JSON.parse(storedLabs);
     return new Map(labsArray);
 }
-function saveLabs(labs) {
+function saveLabs() {
     console.log("saving labs");
     const labsArray = Array.from(labs.entries());
     localStorage.setItem(labsStorageKey, JSON.stringify(labsArray));
@@ -103,7 +163,7 @@ function loadAppointments() {
         { ...appointment, date: new Date(appointment.date) } // Recreate Date object
     ]));
 }
-function saveAppointments(appointments) {
+function saveAppointments() {
     console.log("saving Appointments");
     const appointmentsArray = Array.from(appointments.entries());
     localStorage.setItem(appointmentsStorageKey, JSON.stringify(appointmentsArray));
@@ -118,7 +178,7 @@ function loadPrescriptions() {
         { ...perscription, date: new Date(perscription.date) } // Recreate Date object
     ]));
 }
-function savePrescriptions(prescriptions) {
+function savePrescriptions() {
     console.log("saving Prescriptions");
     const prescriptionsArray = Array.from(prescriptions.entries());
     localStorage.setItem(perscriptionsStorageKey, JSON.stringify(prescriptionsArray));
@@ -133,7 +193,7 @@ function loadTests() {
         { ...test, date: new Date(test.date) } // Recreate Date object
     ]));
 }
-function saveTests(test) {
+function saveTests() {
     console.log("saving Prescriptions");
     const testsArray = Array.from(test.entries());
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));

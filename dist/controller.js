@@ -1,4 +1,4 @@
-import { getPassword, setCurrentPatient } from "./model.js";
+import { addAppointment, getPassword, getPatientAppointments, isHostValid, setCurrentPatient } from "./model.js";
 export function onLoginFormSubmit(formData) {
     const patientID = formData.get("id");
     if (typeof patientID !== "string") {
@@ -27,4 +27,29 @@ export function onLoginFormSubmit(formData) {
     else {
         throw new Error("username and password dont match");
     }
+}
+export function onAppointmentConfirm(timeDate, currHostID) {
+    const today = new Date;
+    if (currHostID === "") {
+        throw new Error("HostID must have a value");
+    }
+    if (typeof currHostID !== "string") {
+        throw new Error("Host ID must be a string");
+    }
+    if (!timeDate) {
+        throw new Error("Time and Date must have a value");
+    }
+    if (timeDate < today) {
+        throw new Error("New appointment must be in the future");
+    }
+    if (!isHostValid(currHostID)) {
+        throw new Error("There is no such host");
+    }
+    const stop = new Date(timeDate);
+    stop.setHours(stop.getHours() + 1);
+    const currPatientAppointments = getPatientAppointments();
+    if (currPatientAppointments.some(appointment => (appointment.date >= timeDate) && (appointment.date <= stop))) {
+        throw new Error("You already have appointment for this time");
+    }
+    addAppointment(timeDate, currHostID);
 }

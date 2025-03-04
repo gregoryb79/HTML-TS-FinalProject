@@ -93,12 +93,22 @@ export function parseAppointmentsCSV(csv) {
     for (const line of lines.slice(1)) {
         const [title, remarks, date, durationMinutes, hostID, host, visitorID, status] = line.split(",");
         const id = crypto.randomUUID().replaceAll("-", "").slice(-8);
+        const today = new Date();
+        const appointmentDate = new Date(date);
+        appointmentDate.setHours(appointmentDate.getHours() - 2); //the generated file in Zoolo Time, so 2h shift is needed to get normal times
+        let appointmentStatus = "";
+        if (appointmentDate < today) {
+            appointmentStatus = "completed";
+        }
+        else {
+            appointmentStatus = "scheduled";
+        }
         appointments.set(id, { id,
             title,
             remarks,
             date: new Date(date),
             durationMinutes: parseInt(durationMinutes),
-            hostID, host: host, visitorID, status: status
+            hostID, host: host, visitorID, status: appointmentStatus
         });
     }
     return appointments;

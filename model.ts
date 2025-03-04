@@ -118,6 +118,78 @@ export function getPatientPrescriptions() : Prescription[]{
 export function getDoctorByID(doctorID : string) : Doctor{
     return doctors.get(doctorID);
 }
+
+export function getHostAppointments(hostID : string) : Appointment[]{
+    const hostAppointments = Array.from(appointments.values().filter(appointment => appointment.hostID === hostID));
+    return hostAppointments;
+}
+
+export function isHostValid(hostID : string) : boolean{
+    if (labs.has(hostID) || doctors.has(hostID)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export function addAppointment(date: Date, hostID : string){
+    const id = crypto.randomUUID().replaceAll("-", "").slice(-8);
+    const title = "Appointment to " + (labs.get(hostID)?.name ?? ("Doctor " + doctors.get(hostID)?.name + " " + doctors.get(hostID)?.surname));
+    const host = labs.has(hostID) ? "Laboratory" : "Doctor";
+    const appointment : Appointment = {
+        id : id,
+        title: title,
+        remarks: "",
+        date: date,
+        durationMinutes: 60,
+        hostID: hostID,
+        host: host as Appointment["host"],
+        visitorID: currPatient,
+        status: "scheduled"
+    };
+
+    appointments.set(id,appointment);
+    saveAppointments();
+}
+
+export function getListOfDepartments(hostType : string) : string[]{
+
+    let departments : string[] = [];
+    if (hostType === "Doctor"){
+        departments = Array.from(new Set(Array.from(doctors.values()).map(doctor => doctor.department)));
+    }
+    if (hostType === "Laboratory"){
+        departments = Array.from(new Set(Array.from(labs.values()).map(lab => lab.department)));
+    }
+
+    return departments;
+}   
+
+export function getHosts(departmentType : string, hostType : string){
+    if (hostType === "Doctor"){
+        const doctorsAtDepartment = Array.from(doctors.values().filter(doctor => doctor.department === departmentType));
+        return doctorsAtDepartment;
+    }
+    if (hostType === "Laboratory"){
+        const labsAtDepartment = Array.from(labs.values().filter(lab => lab.department === departmentType));
+        return labsAtDepartment;
+    }
+}
+
+export function appointmentsForDate(hostID : string, day : Date) : Appointment[]{
+    
+    const start = new Date(day);
+    start.setHours(0,0,0,1);
+    const stop = new Date(day);
+    stop.setHours(23,59,59,99);
+    console.log(`Time interval is from ${start} to ${stop}`);
+    
+    const hostAppointmentsForDate = Array.from(appointments.values().filter(appointment => (appointment.hostID === hostID) && (appointment.date > start) && (appointment.date < stop)));    
+    hostAppointmentsForDate.sort((a,b) => a.date.getTime() - b.date.getTime());     
+
+    return hostAppointmentsForDate ?? [];
+}
+
 /************************************/
 
 function loadCurrPatient() : string{
@@ -137,7 +209,7 @@ function loadPatients(): Map<string, Patient> {
     ]));
 }
 
-function savePatients(patients: Map<string, Patient>){
+function savePatients(){
     console.log("saving patients");    
     const patientsArray = Array.from(patients.entries()); 
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
@@ -153,7 +225,7 @@ function loadDoctors(): Map<string, Doctor>{
     return new Map<string,Doctor>(doctorsArray);
 }
 
-function saveDoctors(doctors: Map<string, Doctor>){
+function saveDoctors(){
     console.log("saving doctors");    
     const doctorsArray = Array.from(doctors.entries()); 
     localStorage.setItem(doctorsStorageKey, JSON.stringify(doctorsArray));
@@ -168,7 +240,7 @@ function loadLabs() : Map<string, Laboratory>{
     return new Map<string,Laboratory>(labsArray);
 }
 
-function saveLabs(labs: Map<string,Laboratory>){
+function saveLabs(){
     console.log("saving labs");    
     const labsArray = Array.from(labs.entries()); 
     localStorage.setItem(labsStorageKey, JSON.stringify(labsArray));
@@ -188,7 +260,7 @@ function loadAppointments(): Map<string,Appointment>{
     ]));
 }
 
-function saveAppointments(appointments: Map<string,Appointment>){
+function saveAppointments(){
     console.log("saving Appointments");    
     const appointmentsArray = Array.from(appointments.entries()); 
     localStorage.setItem(appointmentsStorageKey, JSON.stringify(appointmentsArray));
@@ -208,7 +280,7 @@ function loadPrescriptions(): Map<string,Prescription>{
     ]));
 }
 
-function savePrescriptions(prescriptions: Map<string,Prescription>){
+function savePrescriptions(){
     console.log("saving Prescriptions");    
     const prescriptionsArray = Array.from(prescriptions.entries()); 
     localStorage.setItem(perscriptionsStorageKey, JSON.stringify(prescriptionsArray));
@@ -228,7 +300,7 @@ function loadTests(): Map<string,Test>{
     ]));
 }
 
-function saveTests(test : Map<string,Test>){
+function saveTests(){
     console.log("saving Prescriptions");    
     const testsArray = Array.from(test.entries()); 
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));
