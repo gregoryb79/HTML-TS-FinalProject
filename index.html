@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iPatient</title>
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/composition.css">
+    <link rel="stylesheet" href="styles/utility.css">
+    <link rel="stylesheet" href="styles/block.css">
+    <link rel="stylesheet" href="styles/exception.css">
 </head>
-<body>
-    <header>
-        <a href="#">Test Results</a>
-        <a href="new-apointment.html">New Appointment</a>
-        <a href="#">Prescriptions</a>
-        <a href="login.html">Change Patient</a>
+<body class="dashboard">
+    <header class="dashboard__header">
+        <h1 class="dashboard__title">ברוך הבא, מטופל</h1>
+        <nav class="dashboard__nav">
+            <ul class="nav-list">
+                <li><a href="#">בית</a></li>
+                <li><a href="#">תורים</a></li>
+                <li><a href="#">פרופיל</a></li>
+                <li><a href="#">התנתקות</a></li>
+            </ul>
+        </nav>
     </header>
-    <h2>HELLO <span id="patientName">Patient Name</span></h2>
-    <section>
-        <h3>Nearest Appointments</h3>
-        <ul id="appointments"> </ul>
-    </section>
-    <section>
-        <h3>Latest Test Results</h3>
-        <ul id="testResults"> </ul>
-    </section>
-    <section>
-        <h3>Latest Prescriptions</h3>
-        <ul id="Prescriptions"></ul>
-    </section>   
 
-    <script type="module">
-        import {init} from "./dist/index.js"
+    <main class="dashboard__content">
+        <section class="dashboard__appointments">
+            <h2 class="section-title">התורים שלי</h2>
+            <div class="appointment-card">
+                <p class="appointment-card__date">10 במרץ 2025</p>
+                <p class="appointment-card__time">שעה: 14:30</p>
+                <button class="btn btn--cancel">בטל תור</button>
+            </div>
+        </section>
 
-        init(
-            document.getElementById("patientName"),
-            document.getElementById("appointments"),
-            document.getElementById("testResults"),
-            document.getElementById("Prescriptions")
-        );
-    </script>
+        <section class="dashboard__schedule">
+            <h2 class="section-title">קביעת תור חדש</h2>
+            <button class="btn btn--primary">קבע תור</button>
+        </section>
+    </main>
 </body>
 </html>
