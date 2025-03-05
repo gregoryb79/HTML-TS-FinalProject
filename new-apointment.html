@@ -6,11 +6,11 @@
 
     <title>iPatient|New Apointment</title>
 
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/composition.css">
-    <link rel="stylesheet" href="styles/utility.css">
-    <link rel="stylesheet" href="styles/block.css">
-    <link rel="stylesheet" href="styles/exception.css">
+    <link rel="stylesheet" href="./slave/dist/reset.css">
+    <link rel="stylesheet" href="./slave/dist/composition.css">
+    <link rel="stylesheet" href="./slave/dist/utility.css">
+    <link rel="stylesheet" href="./slave/dist/block.css">
+    <link rel="stylesheet" href="./slave/dist/expection.css">
     <title>New Apointment</title>
 
 </head>
@@ -27,9 +27,9 @@
         </nav>
     </header>
 
-    <h3><span id="patientName">Patient Name</span>, schedule your appointment</h3>
+    <h3 class="margintop-16"><span id="patientName">Patient Name</span>, schedule your appointment</h3>
 
-    <form name="newAppointment">
+    <form class="margintop-16" name="newAppointment">
         <input type="hidden" name="id">
         <label for="hostType">Type:</label>
         <select name="hostType" id="hostType">
@@ -50,7 +50,7 @@
             <h3>Available Time Slots</h3>
             <label for="dateSelector">Choose Day</label>
             <input type="date" name="date" id="dateSelector">                
-            <ul name="availableTimeSlots" id="availableTimeSlots"></ul>
+            <ul class="available-time-slot" name="availableTimeSlots" id="availableTimeSlots"></ul>
         </section>
     
         <section>
