@@ -116,13 +116,13 @@ export function getPatientAppointments() : Appointment[]{
 
 export function getPatientTests() : Test[]{
     const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
-    currPatientTests.sort((a,b) => a.date.getTime() - b.date.getTime());
+    currPatientTests.sort((a,b) => b.date.getTime() - a.date.getTime());
     return currPatientTests;
 }
 
 export function getPatientPrescriptions() : Prescription[]{
     const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
-    currPatientPrescriptions.sort((a,b) => a.date.getTime() - b.date.getTime());
+    currPatientPrescriptions.sort((a,b) => b.date.getTime() - a.date.getTime());
     return currPatientPrescriptions;
 }
 
