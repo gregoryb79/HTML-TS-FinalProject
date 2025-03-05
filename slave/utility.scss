@@ -1,9 +1,13 @@
+// Titles
 .section-title {
     font-size: 20px;
     color: #2C3E50;
     margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
+// Buttons
 .btn {
     display: inline-block;
     padding: 10px 15px;
@@ -12,27 +16,335 @@
     font-size: 14px;
     border-radius: 5px;
     text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
 }
 
 .btn--primary {
     background: #3498db;
     color: white;
+
+    &:hover {
+        background: #2980b9;
+    }
+}
+
+.btn--secondary {
+    background: #2C3E50;
+    color: white;
+
+    &:hover {
+        background: #1a252f;
+    }
+}
+
+.btn--success {
+    background: #27ae60;
+    color: white;
+
+    &:hover {
+        background: #1e8449;
+    }
 }
 
 .btn--cancel {
     background: #e74c3c;
     color: white;
+
+    &:hover {
+        background: #c0392b;
+    }
 }
 
+// Navigation List
 .nav-list {
     list-style: none;
     display: flex;
     justify-content: center;
     gap: 20px;
+    padding: 0;
+    margin: 0;
+
+    li {
+        display: inline-block;
+    }
 }
 
 .nav-list a {
     text-decoration: none;
     color: white;
     font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
+// Cards (Appointments, Test Results, Prescriptions)
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+
+    &__text {
+        font-size: 14px;
+        color: #7f8c8d;
+    }
+}
+
+// Utility Classes for Flexbox
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Spacing Utilities
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.padding {
+    padding: 20px;
+}
+
+// Visibility Utilities
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+// Text Alignment Utilities
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+// Border Radius Utilities
+.rounded {
+    border-radius: 10px;
+}
+
+// General Section Styling
+.section {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    h3 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2C3E50;
+        margin-bottom: 10px;
+    }
+}
+
+// Buttons
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.btn--primary {
+    background: #3498db;
+    color: white;
+
+    &:hover {
+        background: #2980b9;
+    }
+}
+// General Section Styling
+.section {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    h3 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2C3E50;
+        margin-bottom: 10px;
+    }
+}
+
+// Buttons
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.btn--primary {
+    background: #3498db;
+    color: white;
+
+    &:hover {
+        background: #2980b9;
+    }
+}
+
+.btn--danger {
+    background: #e74c3c;
+    color: white;
+
+    &:hover {
+        background: #c0392b;
+    }
+}
+// General Section Styling
+.section {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    h3 {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2C3E50;
+        margin-bottom: 10px;
+    }
+}
+
+// Buttons
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.btn--primary {
+    background: #3498db;
+    color: white;
+
+    &:hover {
+        background: #2980b9;
+    }
+}
+
+.btn--danger {
+    background: #e74c3c;
+    color: white;
+
+    &:hover {
+        background: #c0392b;
+    }
+}
+.margintop-16{
+    margin-top: 1rem;
 }

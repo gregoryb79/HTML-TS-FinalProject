@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  background-color: #f4f4f4;
+  background-color: #f5f7fa;
+  font-family: "Arial", sans-serif;
 }
 
 .dashboard__header {
@@ -13,18 +15,52 @@
   text-align: center;
   color: white;
 }
-
-.dashboard__content {
-  width: 80%;
-  max-width: 900px;
-  margin: 20px auto;
+@media (max-width: 768px) {
+  .dashboard__header {
+    padding: 10px;
+  }
 }
 
-.dashboard__appointments,
-.dashboard__schedule {
+.dashboard__nav .nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+}
+@media (max-width: 600px) {
+  .dashboard__nav .nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.dashboard__title {
+  font-size: 24px;
+  color: #333;
+  margin: 20px 0;
+}
+
+section {
   background: white;
+  width: 90%;
+  max-width: 800px;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+section:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+section h3 {
+  font-size: 20px;
+  color: #2C3E50;
+  margin-bottom: 15px;
+}
+section ul {
+  list-style: none;
+  padding: 0;
 }
