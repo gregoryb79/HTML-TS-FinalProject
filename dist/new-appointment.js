@@ -1,6 +1,7 @@
 import { getPatientAppointments, getListOfDepartments, getHosts, appointmentsForDate, getHostAppointments, getCurrentPatient, getPatient } from "./model.js";
 import { onAppointmentConfirm } from "./controller.js";
-export function init(hostTypeSelector, departmentSelector, hostSelector, dateSelector, timeSlotsList, selection, newAppointment, namePlacer) {
+import { displayToast } from "./view.js";
+export function init(hostTypeSelector, departmentSelector, hostSelector, dateSelector, timeSlotsList, selection, newAppointment, namePlacer, errorMessage) {
     const patientID = getCurrentPatient();
     if (patientID === "") {
         window.location.href = "./login.html";
@@ -62,6 +63,7 @@ export function init(hostTypeSelector, departmentSelector, hostSelector, dateSel
         }
         catch (error) {
             console.error(error);
+            displayToast(errorMessage, error);
         }
     });
     function populateDepartments(hostType) {

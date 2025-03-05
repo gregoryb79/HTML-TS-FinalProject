@@ -1,11 +1,12 @@
 import { getPatientAppointments, getListOfDepartments, getHosts, appointmentsForDate, 
         getHostAppointments, getCurrentPatient, getPatient } from "./model.js";
 import {onAppointmentConfirm} from "./controller.js";
+import {displayToast} from "./view.js";
 
 export function init (hostTypeSelector : HTMLSelectElement, departmentSelector : HTMLSelectElement, 
                     hostSelector : HTMLSelectElement, dateSelector : HTMLInputElement,
                     timeSlotsList : HTMLElement, selection : HTMLElement, newAppointment : HTMLFormElement,
-                    namePlacer : HTMLElement
+                    namePlacer : HTMLElement, errorMessage : HTMLElement
                  ){
 
     const patientID = getCurrentPatient();
@@ -79,6 +80,7 @@ export function init (hostTypeSelector : HTMLSelectElement, departmentSelector :
             renderAvailableTimes();
         }catch(error){
             console.error(error);
+            displayToast(errorMessage, error);
         }
         
     });

@@ -52,7 +52,7 @@
             <input type="date" name="date" id="dateSelector">                
             <ul class="available-time-slot" name="availableTimeSlots" id="availableTimeSlots"></ul>
         </section>
-    
+        <p id="error-message" class="error-message"></p>
         <section>
             <h3>Your Selection</h3>
             <p id="selection"></p>
@@ -73,8 +73,8 @@
             document.getElementById("availableTimeSlots"),
             document.getElementById("selection"),                        
             document.forms.namedItem("newAppointment"),
-            document.getElementById("patientName")
-
+            document.getElementById("patientName"),
+            document.getElementById("error-message")
         );
 
     </script>
