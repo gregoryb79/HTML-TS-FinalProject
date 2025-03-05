@@ -6,6 +6,35 @@
     <title>iPatient</title>
 </head>
 <body>
-    <h1>HELLO</h1>
+    <header>
+        <a href="#">Test Results</a>
+        <a href="new-apointment.html">New Appointment</a>
+        <a href="#">Prescriptions</a>
+        <a href="login.html">Change Patient</a>
+    </header>
+    <h2>HELLO <span id="patientName">Patient Name</span></h2>
+    <section>
+        <h3>Nearest Appointments</h3>
+        <ul id="appointments"> </ul>
+    </section>
+    <section>
+        <h3>Latest Test Results</h3>
+        <ul id="testResults"> </ul>
+    </section>
+    <section>
+        <h3>Latest Prescriptions</h3>
+        <ul id="Prescriptions"></ul>
+    </section>   
+
+    <script type="module">
+        import {init} from "./dist/index.js"
+
+        init(
+            document.getElementById("patientName"),
+            document.getElementById("appointments"),
+            document.getElementById("testResults"),
+            document.getElementById("Prescriptions")
+        );
+    </script>
 </body>
 </html>

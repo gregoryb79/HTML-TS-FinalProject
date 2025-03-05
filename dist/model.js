@@ -22,10 +22,17 @@ export function testFunction() {
 }
 export function setCurrentPatient(patientID) {
     sessionStorage.setItem(currentPatientStorageKey, patientID);
+    currPatient = patientID;
+}
+export function getCurrentPatient() {
+    return currPatient;
 }
 export function addPatient(patient) {
     patients.set(patient.id, patient);
     savePatients(patients);
+}
+export function getPatient() {
+    return patients.get(currPatient);
 }
 export function getPassword(patientID) {
     const password = patients.get(patientID)?.password ?? "";
@@ -38,14 +45,17 @@ export function getPassword(patientID) {
 }
 export function getPatientAppointments() {
     const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
+    currPatientAppointments.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientAppointments;
 }
 export function getPatientTests() {
     const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
+    currPatientTests.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientTests;
 }
 export function getPatientPrescriptions() {
     const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
+    currPatientPrescriptions.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientPrescriptions;
 }
 export function getDoctorByID(doctorID) {
@@ -90,6 +100,14 @@ export function getListOfDepartments(hostType) {
         departments = Array.from(new Set(Array.from(labs.values()).map(lab => lab.department)));
     }
     return departments;
+}
+export function getHost(hostType, hostID) {
+    if (hostType === "Doctor") {
+        return doctors.get(hostID);
+    }
+    if (hostType === "Laboratory") {
+        return labs.get(hostID);
+    }
 }
 export function getHosts(departmentType, hostType) {
     if (hostType === "Doctor") {

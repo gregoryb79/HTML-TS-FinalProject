@@ -6,6 +6,14 @@
     <title>New Apointment</title>
 </head>
 <body>
+    <header>
+        <a href="#">Test Results</a>
+        <a href="index.html">Home</a>
+        <a href="#">Prescriptions</a>
+        <a href="login.html">Change Patient</a>
+    </header>
+
+    <h3><span id="patientName">Patient Name</span>, schedule your appointment</h3>
 
     <form name="newAppointment">
         <input type="hidden" name="id">
@@ -50,7 +58,8 @@
             document.getElementById("dateSelector"),
             document.getElementById("availableTimeSlots"),
             document.getElementById("selection"),                        
-            document.forms.namedItem("newAppointment")
+            document.forms.namedItem("newAppointment"),
+            document.getElementById("patientName")
 
         );
 

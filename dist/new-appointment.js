@@ -1,10 +1,13 @@
-import { getPatientAppointments, getListOfDepartments, getHosts, appointmentsForDate, getHostAppointments, setCurrentPatient } from "./model.js";
+import { getPatientAppointments, getListOfDepartments, getHosts, appointmentsForDate, getHostAppointments, getCurrentPatient, getPatient } from "./model.js";
 import { onAppointmentConfirm } from "./controller.js";
-export function init(hostTypeSelector, departmentSelector, hostSelector, dateSelector, timeSlotsList, selection, newAppointment) {
-    //FOR DEBUG ONLY REMOVE!!!!!
-    setCurrentPatient("183623800"); //FOR DEBUG ONLY REMOVE!!!!!
-    //FOR DEBUG ONLY REMOVE!!!!!
-    const patientAppointments = getPatientAppointments();
+export function init(hostTypeSelector, departmentSelector, hostSelector, dateSelector, timeSlotsList, selection, newAppointment, namePlacer) {
+    const patientID = getCurrentPatient();
+    if (patientID === "") {
+        window.location.href = "./login.html";
+    }
+    const currPatient = getPatient();
+    namePlacer.textContent = `${currPatient.name} ${currPatient.surname}`;
+    //const patientAppointments = getPatientAppointments();
     let hostType = hostTypeSelector.value;
     populateDepartments(hostType);
     let departmentType = departmentSelector.value;

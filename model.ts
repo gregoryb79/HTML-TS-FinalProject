@@ -82,13 +82,20 @@ export function testFunction(){
 
 export function setCurrentPatient(patientID : string){
     sessionStorage.setItem(currentPatientStorageKey,patientID);
+    currPatient = patientID;
+}
+
+export function getCurrentPatient() : string{    
+    return currPatient;
 }
 
 export function addPatient(patient : Patient){
-
     patients.set(patient.id,patient);
     savePatients(patients);
+}
 
+export function getPatient() : Patient{
+    return patients.get(currPatient);
 }
 
 export function getPassword(patientID : string) : string{
@@ -103,16 +110,19 @@ export function getPassword(patientID : string) : string{
 
 export function getPatientAppointments() : Appointment[]{
     const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
+    currPatientAppointments.sort((a,b) => a.date.getTime() - b.date.getTime());
     return currPatientAppointments;
 }
 
 export function getPatientTests() : Test[]{
     const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
+    currPatientTests.sort((a,b) => a.date.getTime() - b.date.getTime());
     return currPatientTests;
 }
 
 export function getPatientPrescriptions() : Prescription[]{
     const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
+    currPatientPrescriptions.sort((a,b) => a.date.getTime() - b.date.getTime());
     return currPatientPrescriptions;
 }
 
@@ -132,6 +142,7 @@ export function isHostValid(hostID : string) : boolean{
         return false;
     }
 }
+
 
 export function addAppointment(date: Date, hostID : string){
     const id = crypto.randomUUID().replaceAll("-", "").slice(-8);
@@ -165,6 +176,15 @@ export function getListOfDepartments(hostType : string) : string[]{
 
     return departments;
 }   
+
+export function getHost(hostType : string, hostID:string){
+    if (hostType === "Doctor"){
+        return doctors.get(hostID);
+    }
+    if (hostType === "Laboratory"){
+        return labs.get(hostID);
+    }
+}
 
 export function getHosts(departmentType : string, hostType : string){
     if (hostType === "Doctor"){
