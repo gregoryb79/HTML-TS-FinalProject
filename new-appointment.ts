@@ -76,6 +76,7 @@ export function init (hostTypeSelector : HTMLSelectElement, departmentSelector :
             onAppointmentConfirm(selectedTimeDate,currHostID);
             console.log("appointment added, the updated appointments are:");
             console.log(getPatientAppointments());
+            renderAvailableTimes();
         }catch(error){
             console.error(error);
         }
@@ -119,9 +120,11 @@ export function init (hostTypeSelector : HTMLSelectElement, departmentSelector :
         for (let i = 0; i < 8; i++){
             const liEL = document.createElement("li");
             const stop = new Date(timeAndDate);
-            stop.setHours(stop.getHours() + 1);
+            stop.setMinutes(stop.getMinutes() + 59);
             liEL.textContent = timeAndDate.toLocaleString("en-IL",{year: "numeric",month: "2-digit",day: "2-digit",hour: "2-digit",minute: "2-digit",hour12: false});
-            liEL.dataset.id = timeAndDate.toISOString();          
+            liEL.dataset.id = timeAndDate.toISOString();  
+            console.log("itrediktin");
+            console.log(hostAppointments.filter(appointment => (appointment.date >= timeAndDate) && (appointment.date <= stop)));
             if (hostAppointments.some(appointment => (appointment.date >= timeAndDate) && (appointment.date <= stop)) || (timeAndDate < today)){
                 liEL.textContent = liEL.textContent + " TAKEN";
                 liEL.classList.add("taken");
