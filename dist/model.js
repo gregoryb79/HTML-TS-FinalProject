@@ -22,9 +22,17 @@ export function testFunction() {
 }
 export function setCurrentPatient(patientID) {
     sessionStorage.setItem(currentPatientStorageKey, patientID);
+    currPatient = patientID;
+}
+export function getCurrentPatient() {
+    return currPatient;
 }
 export function addPatient(patient) {
     patients.set(patient.id, patient);
+    savePatients(patients);
+}
+export function getPatient() {
+    return patients.get(currPatient);
 }
 export function getPassword(patientID) {
     const password = patients.get(patientID)?.password ?? "";
@@ -37,14 +45,17 @@ export function getPassword(patientID) {
 }
 export function getPatientAppointments() {
     const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
+    currPatientAppointments.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientAppointments;
 }
 export function getPatientTests() {
     const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
+    currPatientTests.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientTests;
 }
 export function getPatientPrescriptions() {
     const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
+    currPatientPrescriptions.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientPrescriptions;
 }
 export function getDoctorByID(doctorID) {
@@ -78,7 +89,7 @@ export function addAppointment(date, hostID) {
         status: "scheduled"
     };
     appointments.set(id, appointment);
-    saveAppointments();
+    saveAppointments(appointments);
 }
 export function getListOfDepartments(hostType) {
     let departments = [];
@@ -89,6 +100,14 @@ export function getListOfDepartments(hostType) {
         departments = Array.from(new Set(Array.from(labs.values()).map(lab => lab.department)));
     }
     return departments;
+}
+export function getHost(hostType, hostID) {
+    if (hostType === "Doctor") {
+        return doctors.get(hostID);
+    }
+    if (hostType === "Laboratory") {
+        return labs.get(hostID);
+    }
 }
 export function getHosts(departmentType, hostType) {
     if (hostType === "Doctor") {
@@ -124,7 +143,7 @@ function loadPatients() {
         { ...patient, date: new Date(patient.dateOfBirth) } // Recreate Date object
     ]));
 }
-function savePatients() {
+function savePatients(patients) {
     console.log("saving patients");
     const patientsArray = Array.from(patients.entries());
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
@@ -136,7 +155,7 @@ function loadDoctors() {
     const doctorsArray = JSON.parse(storedDoctors);
     return new Map(doctorsArray);
 }
-function saveDoctors() {
+function saveDoctors(doctors) {
     console.log("saving doctors");
     const doctorsArray = Array.from(doctors.entries());
     localStorage.setItem(doctorsStorageKey, JSON.stringify(doctorsArray));
@@ -148,7 +167,7 @@ function loadLabs() {
     const labsArray = JSON.parse(storedLabs);
     return new Map(labsArray);
 }
-function saveLabs() {
+function saveLabs(labs) {
     console.log("saving labs");
     const labsArray = Array.from(labs.entries());
     localStorage.setItem(labsStorageKey, JSON.stringify(labsArray));
@@ -163,7 +182,7 @@ function loadAppointments() {
         { ...appointment, date: new Date(appointment.date) } // Recreate Date object
     ]));
 }
-function saveAppointments() {
+function saveAppointments(appointments) {
     console.log("saving Appointments");
     const appointmentsArray = Array.from(appointments.entries());
     localStorage.setItem(appointmentsStorageKey, JSON.stringify(appointmentsArray));
@@ -178,7 +197,7 @@ function loadPrescriptions() {
         { ...perscription, date: new Date(perscription.date) } // Recreate Date object
     ]));
 }
-function savePrescriptions() {
+function savePrescriptions(prescriptions) {
     console.log("saving Prescriptions");
     const prescriptionsArray = Array.from(prescriptions.entries());
     localStorage.setItem(perscriptionsStorageKey, JSON.stringify(prescriptionsArray));
@@ -193,9 +212,9 @@ function loadTests() {
         { ...test, date: new Date(test.date) } // Recreate Date object
     ]));
 }
-function saveTests() {
+function saveTests(tests) {
     console.log("saving Prescriptions");
-    const testsArray = Array.from(test.entries());
+    const testsArray = Array.from(tests.entries());
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));
 }
 //Loads some pre generated data - for demo mode, if the local storage is empty
