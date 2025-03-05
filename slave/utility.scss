@@ -1,0 +1,38 @@
+.section-title {
+    font-size: 20px;
+    color: #2C3E50;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn--primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn--cancel {
+    background: #e74c3c;
+    color: white;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
