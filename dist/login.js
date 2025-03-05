@@ -1,4 +1,5 @@
 import { onLoginFormSubmit } from "./controller.js";
+import { displayToast } from "./view.js";
 export function login(form, errorMessage) {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -19,13 +20,4 @@ export function login(form, errorMessage) {
             window.location.href = "./index.html";
         }
     });
-}
-function displayToast(container, message) {
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerText = message;
-    container.appendChild(toast);
-    setTimeout(() => {
-        toast.remove();
-    }, 3000); // Auto-hide after 3s
 }

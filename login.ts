@@ -1,4 +1,5 @@
 import {onLoginFormSubmit} from "./controller.js";
+import {displayToast} from "./view.js";
 
 export function login(form : HTMLFormElement, errorMessage : HTMLElement){
     
@@ -26,16 +27,4 @@ export function login(form : HTMLFormElement, errorMessage : HTMLElement){
 
 }
 
-function displayToast(container: HTMLElement, message: string){
-           
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerText = message;
-    
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.remove();
-    }, 3000); // Auto-hide after 3s
-} 
 

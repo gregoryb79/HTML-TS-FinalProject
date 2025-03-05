@@ -25,6 +25,7 @@ export function setCurrentPatient(patientID) {
 }
 export function addPatient(patient) {
     patients.set(patient.id, patient);
+    savePatients(patients);
 }
 export function getPassword(patientID) {
     const password = patients.get(patientID)?.password ?? "";

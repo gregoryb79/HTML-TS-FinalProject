@@ -6,24 +6,32 @@
     <link rel="stylesheet" href="./dist/patientInfo.css">
 </head>
 <body>
+    
     <div class="container">
         <h2>Patient Information</h2>
-        <form id="patientForm">
-           
-            <input type="text" id="name" placeholder="First Name" required>
-            <input type="text" id="surname" placeholder="Surname" required>
-            <input type="date" id="dateOfBirth" required>
-            <input type="text" id="address" placeholder="Address" required>
-            <input type="tel" id="contactPhone" placeholder="Phone" required>
-            <input type="email" id="email" placeholder="Email" required>
+        <form id="patientForm">            
+            <input name="name" type="text" id="name" placeholder="First Name" required>
+            <input name="surname" type="text" id="surname" placeholder="Surname" required>
+            <input name="id" type="text" id="id" placeholder="ID" required>
+            <input name="dateOfBirth" type="date" id="dateOfBirth" required>
+            <input name="address" type="text" id="address" placeholder="Address" required>
+            <input name="contactPhone" type="tel" id="contactPhone" placeholder="Phone" required>
+            <input name="email" type="email"id="email" placeholder="Email" required>
+            <p id="error-message" class="error-message"></p>
             <div class ="button-group">
-            <button type="button" id="updateBtn">Update</button>
-            <button type="button" id="exportBtn">Export</button>
-        </div>
+                <button type="submit" id="updateBtn" >Update</button>
+                <!-- <button type="button" id="exportBtn">Export</button> -->
+            </div>
         </form>
-        <div id="output"></div>
+        <!-- <div id="output"></div> -->
     </div>
-    <script>
+    <script type="module">
+        import {register} from "./dist/register.js"
+
+        register(
+            document.getElementById("patientForm"),
+            document.getElementById("error-message")
+        );
     </script>
 </body>
 </html>

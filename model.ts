@@ -87,6 +87,7 @@ export function setCurrentPatient(patientID : string){
 export function addPatient(patient : Patient){
 
     patients.set(patient.id,patient);
+    savePatients(patients);
 
 }
 
