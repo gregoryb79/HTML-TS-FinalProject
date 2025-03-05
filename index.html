@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iPatient</title>
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/composition.css">
+    <link rel="stylesheet" href="styles/utility.css">
+    <link rel="stylesheet" href="styles/block.css">
+    <link rel="stylesheet" href="styles/exception.css">
 </head>
-<body>
-    <header>
-        <a href="index.html">Home</a>
-        <a href="tests.html">Tests Results</a>
-        <a href="new-apointment.html">New Appointment</a>
-        <a href="prescriptions.html">Prescriptions</a>
-        <a href="login.html">Change Patient</a>
+
+<body class="dashboard">
+    <header class="dashboard__header">
+      <nav class="dashboard__nav">
+       <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tests.html">Tests Results</a></li>
+          <li><a href="new-apointment.html">New Appointment</a></li>
+          <li><a href="prescriptions.html">Prescriptions</a></li>
+          <li><a href="login.html">Change Patient</a></li>
+         </ul>
+        </nav>
     </header>
+  
+   <main class="dashboard__content">
     <h2>Hello <span id="patientName">Patient Name</span></h2>
     
-    <section>
-        <h3>Your Prescriptions</h3>
-        <ul id="Prescriptions"></ul>
-    </section>   
-
+      <section>
+          <h3>Your Prescriptions</h3>
+          <ul id="Prescriptions"></ul>
+      </section>   
+    </main>
     <script type="module">
         import {init} from "./dist/prescriptions.js"
 
@@ -28,5 +40,6 @@
             document.getElementById("Prescriptions")
         );
     </script>
+
 </body>
 </html>

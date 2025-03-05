@@ -1,0 +1,15 @@
+.appointment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ECF0F1;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.appointment-card__date,
+.appointment-card__time {
+  font-size: 16px;
+  color: #2C3E50;
+}
