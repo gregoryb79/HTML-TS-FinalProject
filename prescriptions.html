@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPatient</title>
+    <title>iPatient|Prescriptions</title>
 </head>
 <body>
     <header>
@@ -14,18 +14,17 @@
         <a href="login.html">Change Patient</a>
     </header>
     <h2>Hello <span id="patientName">Patient Name</span></h2>
-    
     <section>
-        <h3>Your Prescriptions</h3>
-        <ul id="Prescriptions"></ul>
-    </section>   
+        <h3>Test Results</h3>
+        <ul id="testResults"> </ul>
+    </section>     
 
     <script type="module">
         import {init} from "./dist/prescriptions.js"
 
         init(
             document.getElementById("patientName"),            
-            document.getElementById("Prescriptions")
+            document.getElementById("testResults")
         );
     </script>
 </body>
