@@ -161,7 +161,7 @@ Pulmonology Consult,Sleep apnea and bronchitis,2025-10-03 05:00:00+00:00,60,4568
 Ophthalmology Exam,Retinal detachment,2025-10-06 10:30:00+00:00,30,8069f5b2,Doctor,426993183,scheduled
 ENT Consult,Tonsillitis and sinusitis,2025-10-09 13:00:00+00:00,45,899f9432,Doctor,426993183,scheduled
 Emergency Medicine Eval,Abdominal pain,2025-10-12 05:00:00+00:00,60,3399beae,Doctor,111361546,scheduled
-Rheumatology Consult,Lupus and fibromyalgia,2025-10-15 11:30:00+00:00,30,0eab36e9,Doctor,111361546,scheduled
+Rheumatology Consult,Lupus and fibromyalgia,2025-03-16 11:30:00+00:00,30,0eab36e9,Doctor,255888158,scheduled
 Cardiology Checkup,Heart failure,2025-10-21 05:00:00+00:00,45,158ef017,Doctor,111361546,scheduled
 Hematology Lab,Anemia and iron deficiency,2025-10-24 05:00:00+00:00,30,f08960b2,Laboratory,388417537,scheduled
 Neurology Consult,Multiple sclerosis,2025-10-27 06:00:00+00:00,60,170bbfe6,Doctor,388417537,scheduled
@@ -171,3 +171,7 @@ Radiology Lab,Ultrasound,2025-11-05 06:00:00+00:00,30,295788bf,Laboratory,770138
 Dermatology Follow up,Acne and rosacea,2025-11-11 06:00:00+00:00,20,1ee9d518,Doctor,770138977,scheduled
 Endocrinology Consult,Vitamin D deficiency and hormone imbalances,2025-11-14 06:00:00+00:00,45,59f02e21,Doctor,770138977,scheduled
 Gastroenterology Consult,Crohn's disease and ulcerative colitis,2025-11-17 10:00:00+00:00,30,efd30281,Doctor,68249,scheduled
+Radiology Lab,Ultrasound,2025-04-05 06:00:00+00:00,30,295788bf,Laboratory,255888158,scheduled
+Dermatology Follow up,Acne and rosacea,2025-03-11 06:00:00+00:00,20,1ee9d518,Doctor,255888158,scheduled
+Endocrinology Consult,Vitamin D deficiency and hormone imbalances,2025-04-14 06:00:00+00:00,45,59f02e21,Doctor,255888158,scheduled
+Gastroenterology Consult,Crohn's disease and ulcerative colitis,2025-03-17 10:00:00+00:00,30,efd30281,Doctor,255888158,scheduled

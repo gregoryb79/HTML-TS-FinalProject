@@ -45,17 +45,17 @@ export function getPassword(patientID) {
 }
 export function getPatientAppointments() {
     const currPatientAppointments = Array.from(appointments.values().filter(appointment => appointment.visitorID === currPatient));
-    currPatientAppointments.sort((a, b) => b.date.getTime() - a.date.getTime());
+    currPatientAppointments.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientAppointments;
 }
 export function getPatientTests() {
     const currPatientTests = Array.from(tests.values().filter(test => test.patientID === currPatient));
-    currPatientTests.sort((a, b) => b.date.getTime() - a.date.getTime());
+    currPatientTests.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientTests;
 }
 export function getPatientPrescriptions() {
     const currPatientPrescriptions = Array.from(prescriptions.values().filter(prescription => prescription.patientID === currPatient));
-    currPatientPrescriptions.sort((a, b) => b.date.getTime() - a.date.getTime());
+    currPatientPrescriptions.sort((a, b) => a.date.getTime() - b.date.getTime());
     return currPatientPrescriptions;
 }
 export function getDoctorByID(doctorID) {
