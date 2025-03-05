@@ -149,7 +149,7 @@ export function addAppointment(date: Date, hostID : string){
     };
 
     appointments.set(id,appointment);
-    saveAppointments();
+    saveAppointments(appointments);
 }
 
 export function getListOfDepartments(hostType : string) : string[]{
@@ -209,7 +209,7 @@ function loadPatients(): Map<string, Patient> {
     ]));
 }
 
-function savePatients(){
+function savePatients(patients: Map<string, Patient>){
     console.log("saving patients");    
     const patientsArray = Array.from(patients.entries()); 
     localStorage.setItem(patientsStorageKey, JSON.stringify(patientsArray));
@@ -225,7 +225,7 @@ function loadDoctors(): Map<string, Doctor>{
     return new Map<string,Doctor>(doctorsArray);
 }
 
-function saveDoctors(){
+function saveDoctors(doctors : Map<string, Doctor>){
     console.log("saving doctors");    
     const doctorsArray = Array.from(doctors.entries()); 
     localStorage.setItem(doctorsStorageKey, JSON.stringify(doctorsArray));
@@ -240,7 +240,7 @@ function loadLabs() : Map<string, Laboratory>{
     return new Map<string,Laboratory>(labsArray);
 }
 
-function saveLabs(){
+function saveLabs(labs :  Map<string, Laboratory>){
     console.log("saving labs");    
     const labsArray = Array.from(labs.entries()); 
     localStorage.setItem(labsStorageKey, JSON.stringify(labsArray));
@@ -260,7 +260,7 @@ function loadAppointments(): Map<string,Appointment>{
     ]));
 }
 
-function saveAppointments(){
+function saveAppointments(appointments : Map<string,Appointment>){
     console.log("saving Appointments");    
     const appointmentsArray = Array.from(appointments.entries()); 
     localStorage.setItem(appointmentsStorageKey, JSON.stringify(appointmentsArray));
@@ -280,7 +280,7 @@ function loadPrescriptions(): Map<string,Prescription>{
     ]));
 }
 
-function savePrescriptions(){
+function savePrescriptions(prescriptions : Map<string,Prescription>){
     console.log("saving Prescriptions");    
     const prescriptionsArray = Array.from(prescriptions.entries()); 
     localStorage.setItem(perscriptionsStorageKey, JSON.stringify(prescriptionsArray));
@@ -300,9 +300,9 @@ function loadTests(): Map<string,Test>{
     ]));
 }
 
-function saveTests(){
+function saveTests(tests : Map<string,Test>){
     console.log("saving Prescriptions");    
-    const testsArray = Array.from(test.entries()); 
+    const testsArray = Array.from(tests.entries()); 
     localStorage.setItem(testsStorageKey, JSON.stringify(testsArray));
 }
 

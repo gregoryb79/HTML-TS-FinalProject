@@ -17,18 +17,22 @@
             <div class="login-form">
                 <h2>Login to iPatient Online</h2>
                 <p class="subtext">
-                    <a href="#">Login with a one-time password</a>  <a href="#">Forgot password?</a>
+                    <a href="#">Login with a one-time password</a>  
+                    <a href="#">Forgot password?</a> 
+                    <a href="patientInfo.html">Register</a>
                 </p>
 
                 <form id="login-form">
                     <label for="id">ID</label>
-                    <input type="text" id="id" name="id" required pattern="[0-9]{9}" placeholder="Enter your ID number">
+                    <!-- <input type="text" id="id" name="id" required pattern="[0-9]{9}" placeholder="Enter your ID number"> -->
+                    <input type="text" id="id" name="id" placeholder="Enter your ID number">
                     
                     <label for="password">Password </label>
-                    <input type="tel" id="password" name="password" required pattern="[0-9]{10}" placeholder="Enter your phone number">
+                    <input type="tel" id="password" name="password" placeholder="Enter your phone number">
+                    <!-- <input type="tel" id="password" name="password" required pattern="[0-9]{10}" placeholder="Enter your phone number"> -->
                     
                     <div class="captcha">
-                        <input type="checkbox" id="captcha">
+                        <input type="checkbox" id="captcha" name="captcha">
                         <label for="captcha">I'm not a robot</label>
                     </div>
 
@@ -47,7 +51,16 @@
         </footer>
     </main>
 
-    <script src="./dist/logints.js"></script>
-    <SCript:src="./dist/model.js"></SCript:src=>
+    <!-- <script src="./dist/logints.js"></script>
+    <script:src="./dist/model.js"></script> -->
+    <script type="module">
+        import {login} from "./dist/login.js"
+
+        login(
+            document.getElementById("login-form"),
+            document.getElementById("error-message")
+        );
+
+    </script>
 </body>
 </html>

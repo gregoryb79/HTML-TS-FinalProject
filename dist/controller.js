@@ -16,6 +16,18 @@ export function onLoginFormSubmit(formData) {
     if (!password) {
         throw new Error("Password can't be empty");
     }
+    if (!/^\d{9}$/.test(patientID)) {
+        throw new Error("Invalid ID. Must contain exactly 9 digits.");
+    }
+    if (!/^\d{10}$/.test(password)) {
+        throw new Error("Invalid phone number. Must contain exactly 10 digits.");
+    }
+    const captchaChecked = formData.get("captcha");
+    console.log(captchaChecked);
+    if (!captchaChecked) {
+        throw new Error("You must check 'I'm not a robot'.");
+        return;
+    }
     const savedPassword = getPassword(patientID);
     if (savedPassword === "") {
         throw new Error("No such patientID");
@@ -25,7 +37,7 @@ export function onLoginFormSubmit(formData) {
         return true;
     }
     else {
-        throw new Error("username and password dont match");
+        throw new Error("ID and password dont match");
     }
 }
 export function onAppointmentConfirm(timeDate, currHostID) {
