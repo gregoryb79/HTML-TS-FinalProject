@@ -1,11 +1,30 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var form = document.getElementById("login-form");
-    var errorMessage = document.getElementById("error-message");
-    form.addEventListener("submit", function (event) {
+document.addEventListener("DOMContentLoaded", async () => {
+    const form = document.getElementById("login-form");
+    const errorMessage = document.getElementById("error-message");
+    // Fetch the patients.csv file and parse it into an array of objects
+    async function loadPatients() {
+        try {
+            const response = await fetch("/data/patients.csv"); // Fetch from the "data" folder
+            const text = await response.text();
+            const rows = text.split("\n").map(row => row.trim().split(","));
+            // Assuming first row is the header: ["id", "password"]
+            return rows.slice(1).map(row => ({
+                id: row[0],
+                password: row[1]
+            }));
+        }
+        catch (error) {
+            console.error("Error loading patient data:", error);
+            return [];
+        }
+    }
+    // Load patients data before form submission
+    const patients = await loadPatients();
+    form.addEventListener("submit", (event) => {
         event.preventDefault();
-        var id = document.getElementById("id").value.trim();
-        var password = document.getElementById("password").value.trim();
-        var captchaChecked = document.getElementById("captcha").checked;
+        const id = document.getElementById("id").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const captchaChecked = document.getElementById("captcha").checked;
         if (!/^\d{9}$/.test(id)) {
             errorMessage.textContent = "Invalid ID. Must contain exactly 9 digits.";
             return;
@@ -18,7 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMessage.textContent = "You must check 'I'm not a robot'.";
             return;
         }
-        errorMessage.textContent = "";
-        alert("Login successful!");
+        // Check if ID and password match a record in patients.csv
+        const isValidUser = patients.some(patient => patient.id === id && patient.password === password);
+        if (isValidUser) {
+            errorMessage.textContent = "";
+            alert("Login successful!");
+        }
+        else {
+            errorMessage.textContent = "Invalid ID or password.";
+        }
     });
 });

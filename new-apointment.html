@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Apointment</title>
+</head>
+<body>
+    <header>
+        <a href="#">Test Results</a>
+        <a href="index.html">Home</a>
+        <a href="#">Prescriptions</a>
+        <a href="login.html">Change Patient</a>
+    </header>
+
+    <h3><span id="patientName">Patient Name</span>, schedule your appointment</h3>
+
+    <form name="newAppointment">
+        <input type="hidden" name="id">
+        <label for="hostType">Type:</label>
+        <select name="hostType" id="hostType">
+            <option>Doctor</option>
+            <option>Laboratory</option>
+        </select>
+        <label for="departmentSelector">Department</label>
+        <select name="department" id="departmentSelector">
+            <option>Hematology</option>
+            <option>Microbiology</option>            
+        </select>
+        <label for="hostSelector">Choose</label>
+        <select name="host" id="hostSelector">
+            <option>Hematology</option>
+            <option>Microbiology</option>            
+        </select>         
+        <section>
+            <h3>Available Time Slots</h3>
+            <label for="dateSelector">Choose Day</label>
+            <input type="date" name="date" id="dateSelector">                
+            <ul name="availableTimeSlots" id="availableTimeSlots"></ul>
+        </section>
+    
+        <section>
+            <h3>Your Selection</h3>
+            <p id="selection"></p>
+            <button id="confirmButton">Confirm</button>
+        </section>
+    </form>   
+
+   
+    
+
+    <script type="module">
+        import {init} from "./dist/new-appointment.js"
+
+        init(document.getElementById("hostType"),
+            document.getElementById("departmentSelector"),
+            document.getElementById("hostSelector"),
+            document.getElementById("dateSelector"),
+            document.getElementById("availableTimeSlots"),
+            document.getElementById("selection"),                        
+            document.forms.namedItem("newAppointment"),
+            document.getElementById("patientName")
+
+        );
+
+    </script>
+</body>
+</html>

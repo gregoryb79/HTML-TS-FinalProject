@@ -156,3 +156,21 @@ body {
     color: gray;
     text-align: center;
 }
+
+
+.toast {
+    background: var(--primary-color);
+    color: red;
+    padding: 12px 16px;
+    border-radius: 4px;   
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeOut 3s ease forwards;
+    z-index: 1000;
+    position: absolute;
+
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+}
