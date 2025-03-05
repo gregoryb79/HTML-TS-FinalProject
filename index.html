@@ -10,33 +10,36 @@
     <link rel="stylesheet" href="styles/block.css">
     <link rel="stylesheet" href="styles/exception.css">
 </head>
+
 <body class="dashboard">
     <header class="dashboard__header">
-        <h1 class="dashboard__title">ברוך הבא, מטופל</h1>
-        <nav class="dashboard__nav">
-            <ul class="nav-list">
-                <li><a href="#">בית</a></li>
-                <li><a href="#">תורים</a></li>
-                <li><a href="#">פרופיל</a></li>
-                <li><a href="#">התנתקות</a></li>
-            </ul>
+      <nav class="dashboard__nav">
+       <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tests.html">Tests Results</a></li>
+          <li><a href="new-apointment.html">New Appointment</a></li>
+          <li><a href="prescriptions.html">Prescriptions</a></li>
+          <li><a href="login.html">Change Patient</a></li>
+         </ul>
         </nav>
     </header>
-
-    <main class="dashboard__content">
-        <section class="dashboard__appointments">
-            <h2 class="section-title">התורים שלי</h2>
-            <div class="appointment-card">
-                <p class="appointment-card__date">10 במרץ 2025</p>
-                <p class="appointment-card__time">שעה: 14:30</p>
-                <button class="btn btn--cancel">בטל תור</button>
-            </div>
-        </section>
-
-        <section class="dashboard__schedule">
-            <h2 class="section-title">קביעת תור חדש</h2>
-            <button class="btn btn--primary">קבע תור</button>
-        </section>
+  
+   <main class="dashboard__content">
+    <h2>Hello <span id="patientName">Patient Name</span></h2>
+    
+      <section>
+          <h3>Your Prescriptions</h3>
+          <ul id="Prescriptions"></ul>
+      </section>   
     </main>
+    <script type="module">
+        import {init} from "./dist/prescriptions.js"
+
+        init(
+            document.getElementById("patientName"),            
+            document.getElementById("Prescriptions")
+        );
+    </script>
+
 </body>
 </html>

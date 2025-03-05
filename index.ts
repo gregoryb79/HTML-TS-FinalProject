@@ -56,7 +56,7 @@ export function init(namePlacer : HTMLElement, appointmentList : HTMLElement,
             const liEL = document.createElement("li");
             const date = test.date.toLocaleString("en-IL",{year: "numeric",month: "2-digit",day: "2-digit"});                                  
             liEL.dataset.id = test.id;
-            liEL.textContent = `${date} ${test.testName} ${test.result}`;           
+            liEL.textContent = `${date} ${test.testName} - ${test.result}`;           
             testResults.appendChild(liEL);
         }
     }
